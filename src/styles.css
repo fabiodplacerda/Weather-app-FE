@@ -1,0 +1,13 @@
+#search-icon {
+  border: 0;
+  background-color: transparent;
+  transition: all 0.3s;
+}
+
+#search-icon:hover {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+#logo {
+  width: 180px;
+}
