@@ -1,11 +1,30 @@
+#root {
+  background-image: url("/assets/background-img.jpeg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+}
+
 #search-icon {
   border: 0;
   background-color: transparent;
   transition: all 0.3s;
 }
 
+#main-container {
+  min-height: 80vh;
+}
+
 #search-icon:hover {
   color: rgba(0, 0, 0, 0.5);
+}
+
+.form-card {
+  width: 40%;
+  min-width: 350px;
+  margin: 0 auto;
+  /* height: 800px; */
 }
 
 #logo {
