@@ -20,6 +20,11 @@
   color: rgba(0, 0, 0, 0.5);
 }
 
+.form-card-header {
+  background-color: rgb(0, 99, 219);
+  color: white;
+}
+
 .form-card {
   width: 40%;
   min-width: 350px;
@@ -33,4 +38,9 @@
 #footer {
   height: 58.9375px;
   background-color: rgb(248, 249, 250);
+}
+
+#search-button {
+  margin: 0 auto;
+  align-self: center;
 }

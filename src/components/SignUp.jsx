@@ -1,8 +1,10 @@
 export const SignUp = () => {
   return (
     <div className="card form-card">
-      <div class="card-header text-center fs-4">Sign Up</div>
-      <div class="card-body d-flex justify-content-center p-5">
+      <div className="card-header text-center fs-4 form-card-header">
+        Sign Up
+      </div>
+      <div className="card-body d-flex justify-content-center p-5">
         <form className="col-6">
           <div className="mb-3">
             <label htmlFor="username" className="form-label fs-5">
@@ -27,9 +29,11 @@ export const SignUp = () => {
               placeholder="Password"
             />
           </div>
-          <button type="submit" className="btn btn-success">
-            Sign Up
-          </button>
+          <div className="d-flex justify-content-center mt-4">
+            <button type="submit" className="btn btn-primary">
+              Sign Up
+            </button>
+          </div>
         </form>
       </div>
     </div>
