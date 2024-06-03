@@ -1,13 +1,18 @@
 import SearchIcon from "@mui/icons-material/Search";
+import { NavLink, useLocation, Link } from "react-router-dom";
 
 export const Header = () => {
+  const location = useLocation();
+
+  console.log();
+
   return (
     <header>
       <nav className="navbar navbar-expand-lg bg-light">
         <div className="container-fluid">
-          <a className="navbar-brand" href="#">
+          <Link to="/" className="navbar-brand" href="#">
             <img id="logo" src="/assets/logo.png" alt="df weather logo" />
-          </a>
+          </Link>
           <button
             className="navbar-toggler"
             type="button"
@@ -22,19 +27,19 @@ export const Header = () => {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
-                <a className="nav-link" href="#">
+                <NavLink className="nav-link" to="/">
                   Home
-                </a>
+                </NavLink>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">
+                <NavLink className="nav-link" to="/signup">
                   Sign Up
-                </a>
+                </NavLink>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">
+                <NavLink className="nav-link" to="/login">
                   Login
-                </a>
+                </NavLink>
               </li>
               <li className="nav-item dropdown">
                 <a
@@ -60,17 +65,19 @@ export const Header = () => {
                 </ul>
               </li>
             </ul>
-            <form className="d-flex" role="search">
-              <input
-                className="form-control me-2"
-                type="search"
-                placeholder="Location search..."
-                aria-label="location search"
-              />
-              <button id="search-icon" type="submit">
-                <SearchIcon sx={{ fontSize: 30 }}></SearchIcon>
-              </button>
-            </form>
+            {location.pathname !== "/" && (
+              <form className="d-flex" role="search">
+                <input
+                  className="form-control me-2"
+                  type="search"
+                  placeholder="Location search..."
+                  aria-label="location search"
+                />
+                <button id="search-icon" type="submit">
+                  <SearchIcon sx={{ fontSize: 30 }}></SearchIcon>
+                </button>
+              </form>
+            )}
           </div>
         </div>
       </nav>
