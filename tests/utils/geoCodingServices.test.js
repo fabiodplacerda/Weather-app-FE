@@ -2,7 +2,6 @@ import axios from "axios";
 
 import { getCities } from "../../src/utils/geocoding.service";
 import testCities from "../testData/testCities";
-import { expect } from "vitest";
 
 vi.mock("axios");
 

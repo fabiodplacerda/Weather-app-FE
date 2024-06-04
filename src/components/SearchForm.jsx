@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 export const SearchForm = () => {
   const [searchInput, setSearchInput] = useState("");
   const [suggestion, setSuggestion] = useState([]);
+  const [error, setError] = useState(false);
 
   const onChangeHandler = (e) => {
     setSearchInput(e.target.value);
@@ -13,8 +14,16 @@ export const SearchForm = () => {
   const searchHandler = async (e) => {
     e.preventDefault();
     const cities = await getCities(searchInput);
+
+    if (cities instanceof Error) {
+      setError(true);
+      return;
+    }
+    // console.log(cities);
     // setSuggestion(geoCode.results);
     setSuggestion(cities);
+    setError(false);
+
     setSearchInput("");
   };
 
@@ -36,6 +45,11 @@ export const SearchForm = () => {
               value={searchInput}
             />
           </div>
+          {error && (
+            <p className="text-center text-danger">
+              Something went wrong! Please try again
+            </p>
+          )}
           {suggestion.length > 1 && (
             <div className="dropdown">
               <button
@@ -50,14 +64,11 @@ export const SearchForm = () => {
               <ul className="dropdown-menu">
                 {suggestion.map((city) => {
                   return (
-                    <>
-                      <li key={city.id}>
-                        <Link to="/weather" className="dropdown-item" href="#">
-                          {city.formatted}
-                        </Link>
-                      </li>
-                      <hr />
-                    </>
+                    <li key={city.id}>
+                      <Link to="/weather" className="dropdown-item" href="#">
+                        {city.formatted}
+                      </Link>
+                    </li>
                   );
                 })}
               </ul>
