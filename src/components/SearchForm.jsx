@@ -1,11 +1,30 @@
+import { useState } from "react";
+import { getCities } from "../utils/geocoding.service";
+import { Link } from "react-router-dom";
+
 export const SearchForm = () => {
+  const [searchInput, setSearchInput] = useState("");
+  const [suggestion, setSuggestion] = useState([]);
+
+  const onChangeHandler = (e) => {
+    setSearchInput(e.target.value);
+  };
+
+  const searchHandler = async (e) => {
+    e.preventDefault();
+    const cities = await getCities(searchInput);
+    // setSuggestion(geoCode.results);
+    setSuggestion(cities);
+    setSearchInput("");
+  };
+
   return (
     <div className="card form-card">
       <div className="card-header text-center fs-4 form-card-header">
         Tell me about...
       </div>
       <div className="card-body d-flex justify-content-center p-5">
-        <form className="col-6">
+        <form className="col-6" onSubmit={searchHandler}>
           <div className="mb-3">
             <input
               type="search"
@@ -13,8 +32,37 @@ export const SearchForm = () => {
               placeholder="Location name..."
               aria-label="search location input"
               id="search-box"
+              onChange={onChangeHandler}
+              value={searchInput}
             />
           </div>
+          {suggestion.length > 1 && (
+            <div className="dropdown">
+              <button
+                id="dropdown-search-suggestion"
+                className="btn btn-secondary dropdown-toggle"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Select a location
+              </button>
+              <ul className="dropdown-menu">
+                {suggestion.map((city) => {
+                  return (
+                    <>
+                      <li key={city.id}>
+                        <Link to="/weather" className="dropdown-item" href="#">
+                          {city.formatted}
+                        </Link>
+                      </li>
+                      <hr />
+                    </>
+                  );
+                })}
+              </ul>
+            </div>
+          )}
           <div className="d-flex justify-content-center mt-4">
             <button
               type="submit"

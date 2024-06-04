@@ -55,3 +55,7 @@
   max-width: 70%;
   margin: 0 auto;
 }
+
+#dropdown-search-suggestion {
+  width: 100%;
+}
