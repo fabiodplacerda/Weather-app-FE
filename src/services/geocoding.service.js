@@ -1,11 +1,15 @@
 import axios from "axios";
 
 export const getCities = async (cityName) => {
+  const url =
+    import.meta.env.NODE_ENV === "test"
+      ? import.meta.env.VITE_APP_GEOCODINGURL
+      : `${import.meta.env.VITE_APP_GEOCODINGURL}?q=${cityName}&key=${
+          import.meta.env.VITE_APP_GEOCODINGAPIKEY
+        }&language=en&pretty=1&limit=2`;
   try {
-    const geoCode = await axios.get(
-      `https://api.opencagedata.com/geocode/v1/json?q=${cityName}&key=13e70d46881544e19ffe91d9cf884e19&language=en&pretty=1&limit=2`
-    );
-    // const geoCode = await axios.get("http://localhost:3000/results");
+    const geoCode = await axios.get(url);
+
     return geoCode.data;
   } catch (e) {
     console.log(e.message);

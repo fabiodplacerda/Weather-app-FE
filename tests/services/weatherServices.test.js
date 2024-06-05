@@ -9,12 +9,9 @@ describe("Weather services tests", () => {
   it.skip("should make the correct data call", async () => {
     // Arrange
     axios.get.mockResolvedValueOnce(mockedResolvedWeatherData);
-    const lat = 50;
-    const lon = 50;
-    const expected =
-      "https://api.openweathermap.org/data/2.5/forecast?lat=50&lon=50&appid=d8846db496071496646009367dd8705f";
+    const expected = "http://localhost:3000/list";
     // Act
-    await getWeather(lat, lon);
+    await getWeather();
     // Assert
     expect(axios.get).toHaveBeenCalledWith(expected);
   });
