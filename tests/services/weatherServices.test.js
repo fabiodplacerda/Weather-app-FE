@@ -1,6 +1,6 @@
 import axios from "axios";
 import { getWeather } from "../../src/services/weather.service";
-import testWeatherData from "../testData/testWeatherData";
+import testWeatherData from "../data/testWeatherData";
 
 vi.mock("axios");
 
