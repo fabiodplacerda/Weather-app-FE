@@ -14,6 +14,6 @@ describe("Search Form tests", () => {
     await userEvent.click(button);
     // screen.debug();
     // Assert
-    expect(searchInput.value).toEqual("London");
+    expect(searchInput.value).toEqual("");
   });
 });

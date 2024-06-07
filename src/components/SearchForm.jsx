@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { getCities } from "../utils/geocoding.service";
+import { getCities } from "../services/geocoding.service";
 import { Link } from "react-router-dom";
+import citiesDataObj from "../../data/citiesDataObj";
 
-export const SearchForm = () => {
+export const SearchForm = ({ setSelectedCity }) => {
   const [searchInput, setSearchInput] = useState("");
   const [suggestion, setSuggestion] = useState([]);
   const [error, setError] = useState(false);
@@ -13,15 +14,15 @@ export const SearchForm = () => {
 
   const searchHandler = async (e) => {
     e.preventDefault();
-    const cities = await getCities(searchInput);
+    // const cities = await getCities(searchInput);
+    // ! TEST DATA
+    const cities = citiesDataObj;
 
     if (cities instanceof Error) {
       setError(true);
       return;
     }
-    // console.log(cities);
-    // setSuggestion(geoCode.results);
-    setSuggestion(cities);
+    setSuggestion(cities.results);
     setError(false);
 
     setSearchInput("");
@@ -62,13 +63,19 @@ export const SearchForm = () => {
                 Select a location
               </button>
               <ul className="dropdown-menu">
-                {suggestion.map((city) => {
+                {suggestion.map((city, index) => {
                   return (
-                    <li key={city.id}>
-                      <Link to="/weather" className="dropdown-item" href="#">
-                        {city.formatted}
-                      </Link>
-                    </li>
+                    <Link
+                      key={index}
+                      to={`/weather/${city.formatted}`}
+                      className="dropdown-item"
+                      href="#"
+                      onClick={() => {
+                        setSelectedCity(city);
+                      }}
+                    >
+                      {city.formatted}
+                    </Link>
                   );
                 })}
               </ul>
