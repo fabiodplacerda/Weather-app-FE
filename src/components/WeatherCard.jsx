@@ -1,6 +1,6 @@
-export const WeatherCard = ({ city, index }) => {
+export const WeatherCard = ({ city }) => {
   return (
-    <div className="col-md-3 col-6 mt-3" key={index}>
+    <div className="col-md-3 col-6 mt-3">
       <div className="card weather-card" data-testid="weather-card">
         <img
           src={`/assets/weather-icons/${city.icon}.svg`}

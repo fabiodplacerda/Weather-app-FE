@@ -87,7 +87,7 @@ export const Weather = ({ selectedCity }) => {
           <div className="row">
             {cityWeather.map((city, index) => {
               if (index !== 0) {
-                return <WeatherCard city={city} index={index} />;
+                return <WeatherCard city={city} key={index} />;
               }
             })}
           </div>
