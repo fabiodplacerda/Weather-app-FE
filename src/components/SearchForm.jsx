@@ -1,12 +1,20 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { getCities } from "../services/geocoding.service";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import citiesDataObj from "../../data/citiesDataObj";
 
-export const SearchForm = ({ setSelectedCity }) => {
+export const SearchForm = ({ setSelectedCity, searchTerm }) => {
   const [searchInput, setSearchInput] = useState("");
   const [suggestion, setSuggestion] = useState([]);
   const [error, setError] = useState(false);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (searchTerm.length > 1) {
+      setSearchInput(searchTerm);
+    }
+  }, []);
 
   const onChangeHandler = (e) => {
     setSearchInput(e.target.value);
@@ -22,7 +30,14 @@ export const SearchForm = ({ setSelectedCity }) => {
       setError(true);
       return;
     }
-    setSuggestion(cities.results);
+
+    const results = cities.results;
+
+    if (results.length === 1) {
+      setSelectedCity(results[0]);
+      navigate(`/weather/${results[0].formatted}`);
+    }
+    setSuggestion(results);
     setError(false);
 
     setSearchInput("");
@@ -51,7 +66,7 @@ export const SearchForm = ({ setSelectedCity }) => {
               Something went wrong! Please try again
             </p>
           )}
-          {suggestion.length > 1 && (
+          {suggestion.length > 0 && (
             <div className="dropdown">
               <button
                 id="dropdown-search-suggestion"

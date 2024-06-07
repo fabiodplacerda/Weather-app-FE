@@ -10,15 +10,21 @@ import { useState } from "react";
 
 const App = () => {
   const [selectedCity, setSelectedCity] = useState({});
+  const [searchTerm, setSearchTerm] = useState("");
 
   return (
     <>
-      <Header />
+      <Header setSearchTerm={setSearchTerm} />
       <main className="mt-5 mb-5 align-items-center d-flex" id="main-container">
         <Routes>
           <Route
             path="/"
-            element={<SearchForm setSelectedCity={setSelectedCity} />}
+            element={
+              <SearchForm
+                setSelectedCity={setSelectedCity}
+                searchTerm={searchTerm}
+              />
+            }
           />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<Login />} />

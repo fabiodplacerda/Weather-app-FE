@@ -1,10 +1,23 @@
 import SearchIcon from "@mui/icons-material/Search";
-import { NavLink, useLocation, Link } from "react-router-dom";
+import { useState } from "react";
+import { NavLink, useLocation, Link, useNavigate } from "react-router-dom";
 
-export const Header = () => {
+export const Header = ({ setSearchTerm }) => {
+  const navigate = useNavigate();
+
+  const [searchInput, setSearchInput] = useState("");
   const location = useLocation();
 
-  console.log();
+  const onChangeHandler = (e) => {
+    setSearchInput(e.target.value);
+  };
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+    setSearchTerm(searchInput);
+    navigate("/");
+    setSearchInput("");
+  };
 
   return (
     <header>
@@ -66,12 +79,14 @@ export const Header = () => {
               </li>
             </ul>
             {location.pathname !== "/" && (
-              <form className="d-flex" role="search">
+              <form className="d-flex" role="search" onSubmit={submitHandler}>
                 <input
                   className="form-control me-2"
                   type="search"
                   placeholder="Location search..."
                   aria-label="location search"
+                  onChange={onChangeHandler}
+                  value={searchInput}
                 />
                 <button id="search-icon" type="submit">
                   <SearchIcon sx={{ fontSize: 30 }}></SearchIcon>
