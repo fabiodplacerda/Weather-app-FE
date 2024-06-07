@@ -2,7 +2,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import { useState } from "react";
 import { NavLink, useLocation, Link, useNavigate } from "react-router-dom";
 
-export const Header = ({ setSearchTerm }) => {
+export const Header = ({ setSearchTerm, favouriteCities }) => {
   const navigate = useNavigate();
 
   const [searchInput, setSearchInput] = useState("");
@@ -55,17 +55,25 @@ export const Header = ({ setSearchTerm }) => {
                 </NavLink>
               </li>
               <li className="nav-item dropdown">
-                <a
+                <Link
                   className="nav-link dropdown-toggle"
-                  href="#"
+                  to="/favouritelocations"
                   role="button"
-                  data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
-                  My Saved Location
-                </a>
+                  My Saved Locations
+                </Link>
                 <ul className="dropdown-menu">
-                  <li>
+                  {favouriteCities.map((city, index) => {
+                    return (
+                      <li key={index}>
+                        <a className="dropdown-item" href="#">
+                          {city}
+                        </a>
+                      </li>
+                    );
+                  })}
+                  {/* <li>
                     <a className="dropdown-item" href="#">
                       Action
                     </a>
@@ -74,7 +82,7 @@ export const Header = ({ setSearchTerm }) => {
                     <a className="dropdown-item" href="#">
                       Another action
                     </a>
-                  </li>
+                  </li> */}
                 </ul>
               </li>
             </ul>
