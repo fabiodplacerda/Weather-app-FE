@@ -1,5 +1,10 @@
 #root {
-  background-image: url("/assets/background-img.jpeg");
+  background: linear-gradient(
+      0deg,
+      rgba(80, 80, 80, 0.5),
+      rgba(80, 80, 80, 0.5)
+    ),
+    url("/assets/background-img.jpeg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -58,4 +63,9 @@
 
 #dropdown-search-suggestion {
   width: 100%;
+}
+
+.error-container {
+  margin: 0 auto;
+  color: rgb(248, 249, 250);
 }
