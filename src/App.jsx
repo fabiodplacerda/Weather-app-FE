@@ -15,13 +15,29 @@ const App = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [favouriteCities, setFavouriteCities] = useState([]);
 
+  const [user, setUser] = useState(null);
+
   useEffect(() => {
     setFavouriteCities(favouriteCitiesData);
+    const savedUser = sessionStorage.getItem("user");
+    if (savedUser) {
+      setUser(JSON.parse(savedUser));
+    }
   }, []);
+
+  const handleLogout = () => {
+    sessionStorage.removeItem("user");
+    setUser(null);
+  };
 
   return (
     <>
-      <Header setSearchTerm={setSearchTerm} favouriteCities={favouriteCities} />
+      <Header
+        setSearchTerm={setSearchTerm}
+        favouriteCities={favouriteCities}
+        user={user}
+        handleLogout={handleLogout}
+      />
       <main className="mt-5 mb-5 align-items-center d-flex" id="main-container">
         <Routes>
           <Route
@@ -34,7 +50,8 @@ const App = () => {
             }
           />
           <Route path="/signup" element={<SignUp />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/login" element={<Login setUser={setUser} />} />{" "}
+          {/* Ensure setUser is passed here */}
           <Route
             path="/weather/:id"
             element={<Weather selectedCity={selectedCity} />}

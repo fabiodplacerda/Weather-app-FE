@@ -1,8 +1,8 @@
 import SearchIcon from "@mui/icons-material/Search";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { NavLink, useLocation, Link, useNavigate } from "react-router-dom";
 
-export const Header = ({ setSearchTerm, favouriteCities }) => {
+export const Header = ({ setSearchTerm, favouriteCities, user, setUser }) => {
   const navigate = useNavigate();
 
   const [searchInput, setSearchInput] = useState("");
@@ -44,36 +44,55 @@ export const Header = ({ setSearchTerm, favouriteCities }) => {
                   Home
                 </NavLink>
               </li>
-              <li className="nav-item">
-                <NavLink className="nav-link" to="/signup">
-                  Sign Up
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink className="nav-link" to="/login">
-                  Login
-                </NavLink>
-              </li>
-              <li className="nav-item dropdown">
-                <Link
-                  className="nav-link dropdown-toggle"
-                  to="/favouritelocations"
-                  role="button"
-                  aria-expanded="false"
-                >
-                  My Saved Locations
-                </Link>
-                <ul className="dropdown-menu">
-                  {favouriteCities.map((city, index) => {
-                    return (
-                      <li key={index}>
-                        <a className="dropdown-item" href="#">
-                          {city}
-                        </a>
-                      </li>
-                    );
-                  })}
-                  {/* <li>
+              {user && (
+                <li className="nav-item">
+                  <NavLink
+                    className="nav-link"
+                    to="/login"
+                    onClick={() => {
+                      sessionStorage.clear();
+                      setUser(null);
+                    }}
+                  >
+                    Logout
+                  </NavLink>
+                </li>
+              )}
+              {!user && (
+                <>
+                  <li className="nav-item">
+                    <NavLink className="nav-link" to="/signup">
+                      Sign Up
+                    </NavLink>
+                  </li>
+                  <li className="nav-item">
+                    <NavLink className="nav-link" to="/login">
+                      Login
+                    </NavLink>
+                  </li>
+                </>
+              )}
+              {user && (
+                <li className="nav-item dropdown">
+                  <Link
+                    className="nav-link dropdown-toggle"
+                    to="/favouritelocations"
+                    role="button"
+                    aria-expanded="false"
+                  >
+                    My Saved Locations
+                  </Link>
+                  <ul className="dropdown-menu">
+                    {favouriteCities.map((city, index) => {
+                      return (
+                        <li key={index}>
+                          <a className="dropdown-item" href="#">
+                            {city}
+                          </a>
+                        </li>
+                      );
+                    })}
+                    {/* <li>
                     <a className="dropdown-item" href="#">
                       Action
                     </a>
@@ -83,8 +102,9 @@ export const Header = ({ setSearchTerm, favouriteCities }) => {
                       Another action
                     </a>
                   </li> */}
-                </ul>
-              </li>
+                  </ul>
+                </li>
+              )}
             </ul>
             {location.pathname !== "/" && (
               <form className="d-flex" role="search" onSubmit={submitHandler}>

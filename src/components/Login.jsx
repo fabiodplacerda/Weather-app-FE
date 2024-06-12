@@ -1,5 +1,5 @@
 import { UserForm } from "./UserForm";
 
-export const Login = () => {
-  return <UserForm action={"Login"} />;
+export const Login = ({ setUser }) => {
+  return <UserForm action={"Login"} setUser={setUser} />;
 };
