@@ -7,6 +7,17 @@ export const getUser = async (email) => {
     );
     return user.data;
   } catch (e) {
+    console.log(e);
+
+    return e;
+  }
+};
+
+export const addUser = async (newUser) => {
+  try {
+    const addedUser = await axios.post("http://localhost:3000/user/", newUser);
+    return addedUser.data;
+  } catch (e) {
     return e;
   }
 };

@@ -78,3 +78,7 @@
   margin: 0 auto;
   color: rgba(255, 255, 255, 1);
 }
+
+#loading-button {
+  min-width: 100px;
+}
