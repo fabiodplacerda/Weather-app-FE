@@ -1,42 +1,29 @@
 import { useState } from "react";
 import { addUser, getUser } from "../services/user.service";
 import { useNavigate } from "react-router-dom";
-import { Loading } from "./Loading";
 
 import LoadingButton from "@mui/lab/LoadingButton";
+import {
+  validateEmail,
+  validateName,
+  validatePassword,
+} from "./utils/formValidation";
 
 export const UserForm = ({ action, setUser }) => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
+
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+
   const [isRegisterSuccessful, setIsRegisterSuccessful] = useState(false);
   const [isLoginSuccessful, setIsLoginSuccessful] = useState(false);
 
   const [isNameValid, setIsNameValid] = useState(true);
   const [isEmailValid, setIsEmailValid] = useState(true);
   const [isPasswordValid, setIsPasswordValid] = useState(true);
-
-  const validatePassword = () => {
-    const passwordRegex =
-      /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-    const itMatches = passwordRegex.test(password);
-    setIsPasswordValid(itMatches);
-    return itMatches;
-  };
-  const validateEmail = () => {
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    const itMatches = emailRegex.test(email);
-    setIsEmailValid(itMatches);
-    return itMatches;
-  };
-  const validateName = () => {
-    const itMatches = name.length > 3;
-    setIsNameValid(itMatches);
-    return itMatches;
-  };
 
   const login = async () => {
     const userData = await getUser(email);
@@ -55,9 +42,9 @@ export const UserForm = ({ action, setUser }) => {
 
   const signUp = async () => {
     const userData = await getUser(email);
-    const isEmailValid = validateEmail();
-    const isNameValid = validateName();
-    const isPasswordValid = validatePassword();
+    const isEmailValid = validateEmail(email, setIsEmailValid);
+    const isNameValid = validateName(name, setIsNameValid);
+    const isPasswordValid = validatePassword(password, setIsPasswordValid);
     if (
       !userData.hasOwnProperty("email") &&
       isEmailValid &&
@@ -91,10 +78,6 @@ export const UserForm = ({ action, setUser }) => {
       await signUp();
     }
   };
-
-  // if (loading) {
-  //   return <Loading text={"Login Successful"} />;
-  // }
 
   return (
     <div className="card form-card">
