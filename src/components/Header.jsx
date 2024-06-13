@@ -19,6 +19,8 @@ export const Header = ({ setSearchTerm, favouriteCities, user, setUser }) => {
     setSearchInput("");
   };
 
+  console.log(user);
+
   return (
     <header>
       <nav className="navbar navbar-expand-lg bg-light">
@@ -72,7 +74,7 @@ export const Header = ({ setSearchTerm, favouriteCities, user, setUser }) => {
                   </li>
                 </>
               )}
-              {user && (
+              {user && user.favouriteCities.length > 0 && (
                 <li className="nav-item dropdown">
                   <Link
                     className="nav-link dropdown-toggle"
@@ -83,7 +85,7 @@ export const Header = ({ setSearchTerm, favouriteCities, user, setUser }) => {
                     My Saved Locations
                   </Link>
                   <ul className="dropdown-menu">
-                    {favouriteCities.map((city, index) => {
+                    {user.favouriteCities.map((city, index) => {
                       return (
                         <li key={index}>
                           <a className="dropdown-item" href="#">
@@ -92,16 +94,6 @@ export const Header = ({ setSearchTerm, favouriteCities, user, setUser }) => {
                         </li>
                       );
                     })}
-                    {/* <li>
-                    <a className="dropdown-item" href="#">
-                      Action
-                    </a>
-                  </li>
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      Another action
-                    </a>
-                  </li> */}
                   </ul>
                 </li>
               )}

@@ -54,7 +54,7 @@ const App = () => {
           {/* Ensure setUser is passed here */}
           <Route
             path="/weather/:id"
-            element={<Weather selectedCity={selectedCity} />}
+            element={<Weather selectedCity={selectedCity} user={user} />}
           />
           <Route
             path="/favouritelocations"

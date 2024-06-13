@@ -6,8 +6,9 @@ import { Loading } from "./Loading";
 import { Error } from "./Error";
 import weatherDataObj from "../../data/weatherDataObj";
 import { WeatherCard } from "./WeatherCard";
+import { Link } from "react-router-dom";
 
-export const Weather = ({ selectedCity }) => {
+export const Weather = ({ selectedCity, user }) => {
   const [cityWeather, setCityWeather] = useState([]);
   const [cityDetails, setCityDetails] = useState({ name: "", country: "" });
   const [isLoading, setIsLoading] = useState(true);
@@ -59,13 +60,20 @@ export const Weather = ({ selectedCity }) => {
           {cityDetails.name}, {cityDetails.country}
         </h2>
         <div className="text-center">
-          <p>
-            <span>
-              <BookmarkAddIcon></BookmarkAddIcon>
-            </span>
-            {"  "}
-            Click to add to favourites
-          </p>
+          {user ? (
+            <p className="fs-5">
+              <span>
+                <BookmarkAddIcon></BookmarkAddIcon>
+              </span>
+              {"  "}
+              Click to add to favourites
+            </p>
+          ) : (
+            <p className="fs-5">
+              {<Link to="/login">Login</Link>} to add this city to your
+              favourites
+            </p>
+          )}
         </div>
         <div className="text-center">
           <h3>Today's Weather:</h3>
