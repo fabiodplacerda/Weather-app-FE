@@ -6,6 +6,7 @@ import * as services from "../src/services/weather.service";
 
 import { MemoryRouter } from "react-router-dom";
 import testCities from "./data/testCities";
+import testWeatherData from "./data/testWeatherData";
 
 vi.mock("../src/services/weather.service");
 
@@ -25,8 +26,8 @@ describe("Weather component tests", () => {
 
   it("should render weather cards only 4 times", async () => {
     // Arrange
-    const result = services.getWeather.mockResolvedValueOnce(testCities);
-    console.log(result);
+    const result = services.getWeather.mockResolvedValueOnce(testWeatherData);
+
     const city = testCities[0];
     // Act
     render(<Weather selectedCity={city} />, {

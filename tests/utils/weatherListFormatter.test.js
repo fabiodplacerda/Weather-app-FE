@@ -5,7 +5,7 @@ describe("Weather List Formatter tests", () => {
   it("should return an array with 5 elements only ", () => {
     // Arrange
     // Act
-    const result = weatherListFormatter(testWeatherData);
+    const result = weatherListFormatter(testWeatherData.list);
     // Assert
     expect(result.length).toBe(5);
   });
@@ -14,43 +14,44 @@ describe("Weather List Formatter tests", () => {
     // Arrange
     const expected = [
       {
-        date: "5th June 2024",
-        dayOfWeek: "Wednesday",
-        icon: "04d",
-        temp: "16ºC",
-        weather: "Broken clouds",
-      },
-      {
-        date: "6th June 2024",
-        dayOfWeek: "Thursday",
-        icon: "04d",
-        temp: "16ºC",
-        weather: "Overcast clouds",
-      },
-      {
-        date: "7th June 2024",
+        date: "14th June 2024",
         dayOfWeek: "Friday",
-        icon: "10d",
-        temp: "17ºC",
         weather: "Light rain",
+        icon: "10n",
+        temp: "12ºC",
       },
       {
-        date: "8th June 2024",
+        date: "14th June 2024",
+        dayOfWeek: "Friday",
+        weather: "Light rain",
+        icon: "10d",
+        temp: "18ºC",
+      },
+      {
+        date: "15th June 2024",
         dayOfWeek: "Saturday",
-        icon: "04d",
-        temp: "17ºC",
-        weather: "Overcast clouds",
+        weather: "Light rain",
+        icon: "10d",
+        temp: "16ºC",
       },
       {
-        date: "9th June 2024",
+        date: "16th June 2024",
         dayOfWeek: "Sunday",
-        icon: "10d",
-        temp: "14ºC",
         weather: "Light rain",
+        icon: "10d",
+        temp: "19ºC",
+      },
+      {
+        date: "17th June 2024",
+        dayOfWeek: "Monday",
+        weather: "Broken clouds",
+        icon: "04d",
+        temp: "21ºC",
       },
     ];
     // Act
-    const result = weatherListFormatter(testWeatherData);
+    const result = weatherListFormatter(testWeatherData.list);
+
     // Assert
     expect(result).toEqual(expected);
   });

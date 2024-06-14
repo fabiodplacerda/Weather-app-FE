@@ -17,10 +17,12 @@ export const Weather = ({ selectedCity, user }) => {
   const getWeatherFromServices = async () => {
     try {
       const { lat, lng } = selectedCity.geometry;
-      // const weather = await getWeather(lat, lng);
+      const weather = await getWeather(lat, lng);
+
+      // console.log(weather);
 
       // ! TEST OBJECT
-      const weather = weatherDataObj;
+      // const weather = weatherDataObj;
 
       const list = weather.list;
       setCityDetails({
