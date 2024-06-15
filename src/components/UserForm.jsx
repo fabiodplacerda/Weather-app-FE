@@ -103,7 +103,11 @@ export const UserForm = ({ action, setUser }) => {
                 setIsEmailValid(true);
               }}
             />
-            {!isEmailValid && <p className="text-danger">Email not valid</p>}
+            {!isEmailValid && (
+              <p className="text-danger" data-testid="invalid-email-text">
+                Email not valid
+              </p>
+            )}
           </div>
           {action === "Sign Up" && (
             <div className="mb-3">
@@ -124,7 +128,7 @@ export const UserForm = ({ action, setUser }) => {
                 }}
               />
               {!isNameValid && (
-                <p className="text-danger">
+                <p className="text-danger" data-testid="invalid-name-text">
                   Name should have at least 3 characters
                 </p>
               )}
@@ -139,6 +143,7 @@ export const UserForm = ({ action, setUser }) => {
               className="form-control"
               id="password"
               placeholder="Password"
+              aria-label="password"
               value={password}
               onChange={(e) => {
                 setPassword(e.target.value);
@@ -147,7 +152,7 @@ export const UserForm = ({ action, setUser }) => {
               }}
             />
             {!isPasswordValid && (
-              <p className="text-danger">
+              <p className="text-danger" data-testid="invalid-password-text">
                 Password must be 8+ characters <br />1 uppercase
                 <br /> 1 number <br />1 special character.
               </p>
@@ -167,6 +172,7 @@ export const UserForm = ({ action, setUser }) => {
               loadingIndicator="Loading…"
               variant="contained"
               type="submit"
+              data-testid="loading-button"
             >
               {action}
             </LoadingButton>

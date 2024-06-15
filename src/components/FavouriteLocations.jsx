@@ -13,6 +13,7 @@ export const FavouriteLocations = ({ favouriteCities }) => {
                 <div
                   key={index}
                   className="d-flex col-sm-12 col-md-6 col-lg-3 justify-content-center"
+                  data-testid="single-favourite-city"
                 >
                   <BookmarkRemoveIcon
                     sx={{ fontSize: 30 }}
