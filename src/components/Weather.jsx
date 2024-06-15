@@ -19,8 +19,6 @@ export const Weather = ({ selectedCity, user }) => {
       const { lat, lng } = selectedCity.geometry;
       const weather = await getWeather(lat, lng);
 
-      // console.log(weather);
-
       // ! TEST OBJECT
       // const weather = weatherDataObj;
 
@@ -29,9 +27,8 @@ export const Weather = ({ selectedCity, user }) => {
         name: weather.city.name,
         country: weather.city.country,
       });
+      // console.log(list);
       const listFormatted = weatherListFormatter(list);
-
-      console.log(cityWeather);
       setError(false);
       setCityWeather(listFormatted);
     } catch (e) {

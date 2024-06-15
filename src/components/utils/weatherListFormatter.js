@@ -29,6 +29,8 @@ const weatherListFormatter = (weatherList) => {
     }
   });
 
+  if (formattedList.length > 5) formattedList.pop();
+
   return formattedList;
 };
 
