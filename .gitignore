@@ -24,3 +24,6 @@ dist-ssr
 *.sw?
 
 **/data/*
+
+# Coverage directory used by tools like istanbul
+coverage
