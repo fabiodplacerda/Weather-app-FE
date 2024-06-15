@@ -21,13 +21,6 @@ describe("Weather List Formatter tests", () => {
         temp: "12ºC",
       },
       {
-        date: "14th June 2024",
-        dayOfWeek: "Friday",
-        weather: "Light rain",
-        icon: "10d",
-        temp: "18ºC",
-      },
-      {
         date: "15th June 2024",
         dayOfWeek: "Saturday",
         weather: "Light rain",
@@ -47,6 +40,13 @@ describe("Weather List Formatter tests", () => {
         weather: "Broken clouds",
         icon: "04d",
         temp: "21ºC",
+      },
+      {
+        date: "18th June 2024",
+        dayOfWeek: "Tuesday",
+        weather: "Light rain",
+        icon: "10d",
+        temp: "15ºC",
       },
     ];
     // Act
