@@ -6,7 +6,7 @@ import citiesDataObj from "../../data/citiesDataObj";
 export const SearchForm = ({ setSelectedCity, searchTerm }) => {
   const [searchInput, setSearchInput] = useState("");
   const [suggestion, setSuggestion] = useState([]);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState(null);
 
   const navigate = useNavigate();
 
@@ -22,12 +22,15 @@ export const SearchForm = ({ setSelectedCity, searchTerm }) => {
 
   const searchHandler = async (e) => {
     e.preventDefault();
-    // const cities = await getCities(searchInput);
+    const cities = await getCities(searchInput);
+
     // ! TEST DATA
-    const cities = citiesDataObj;
+    // const cities = citiesDataObj;
 
     if (cities instanceof Error) {
-      setError(true);
+      setError({
+        message: "Something went wrong retrieving the data! Please try again",
+      });
       return;
     }
 
@@ -36,11 +39,16 @@ export const SearchForm = ({ setSelectedCity, searchTerm }) => {
     if (results.length === 1) {
       setSelectedCity(results[0]);
       navigate(`/weather/${results[0].formatted}`);
-    }
-    setSuggestion(results);
-    setError(false);
+    } else if (results.length === 0) {
+      setError({
+        message: `Failed to search for ${searchInput}, please provide a valid city name and country`,
+      });
+    } else {
+      setSuggestion(results);
+      setError(false);
 
-    setSearchInput("");
+      setSearchInput("");
+    }
   };
 
   return (
@@ -63,7 +71,7 @@ export const SearchForm = ({ setSelectedCity, searchTerm }) => {
           </div>
           {error && (
             <p className="text-center text-danger">
-              Something went wrong! Please try again
+              {error.message} <br /> ex. London, UK
             </p>
           )}
           {suggestion.length > 0 && (
