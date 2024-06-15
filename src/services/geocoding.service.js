@@ -9,7 +9,6 @@ export const getCities = async (cityName) => {
         }&language=en&pretty=1&limit=2`;
   try {
     const geoCode = await axios.get(url);
-
     return geoCode.data;
   } catch (e) {
     console.log(e.message);

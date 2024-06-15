@@ -1,10 +1,10 @@
+import { act } from "react";
 import { render, screen, waitFor } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
 
 import { Weather } from "../src/components/Weather";
+import { getWeather } from "../src/services/weather.service";
 
-import * as services from "../src/services/weather.service";
-
-import { MemoryRouter } from "react-router-dom";
 import testCities from "./data/testCities";
 import testWeatherData from "./data/testWeatherData";
 
@@ -13,11 +13,16 @@ vi.mock("../src/services/weather.service");
 describe("Weather component tests", () => {
   it("should render loading when the page first loads", async () => {
     // Arrange
+    await act(
+      async () => await getWeather.mockResolvedValueOnce(testWeatherData)
+    );
+    const city = testCities.results[0];
 
-    const city = testCities[0];
     // Act
-    render(<Weather selectedCity={city} />, {
-      wrapper: MemoryRouter,
+    await act(async () => {
+      render(<Weather selectedCity={city} />, {
+        wrapper: MemoryRouter,
+      });
     });
     const loadingText = screen.getByText(/Retrieving weather data/i);
     // Assert
@@ -26,12 +31,17 @@ describe("Weather component tests", () => {
 
   it("should render weather cards only 4 times", async () => {
     // Arrange
-    const result = services.getWeather.mockResolvedValueOnce(testWeatherData);
+    await act(
+      async () => await getWeather.mockResolvedValueOnce(testWeatherData)
+    );
 
-    const city = testCities[0];
+    const city = testCities.results[0];
+
     // Act
-    render(<Weather selectedCity={city} />, {
-      wrapper: MemoryRouter,
+    await act(async () => {
+      render(<Weather selectedCity={city} />, {
+        wrapper: MemoryRouter,
+      });
     });
     // Assert
     await waitFor(
