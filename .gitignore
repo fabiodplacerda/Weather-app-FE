@@ -23,7 +23,8 @@ dist-ssr
 *.sln
 *.sw?
 
-**/data/*
+data/
+!tests/data/
 
 # Coverage directory used by tools like istanbul
 coverage
