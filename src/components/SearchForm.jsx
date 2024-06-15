@@ -43,6 +43,7 @@ export const SearchForm = ({ setSelectedCity, searchTerm }) => {
       setError({
         message: `Failed to search for ${searchInput}, please provide a valid city name and country`,
       });
+      setSuggestion(results);
     } else {
       setSuggestion(results);
       setError(false);

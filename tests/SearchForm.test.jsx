@@ -24,8 +24,30 @@ describe("Search Form tests", () => {
     const button = screen.getByRole("button");
     await userEvent.type(searchInput, "London");
     await userEvent.click(button);
-    // screen.debug();
     // Assert
     expect(searchInput.value).toEqual("");
+  });
+  it("should show a dropdown menu if value in the search input was valid", async () => {
+    // Arrange
+    await act(
+      async () => await services.getCities.mockResolvedValueOnce(testCities)
+    );
+
+    // Act
+    await act(async () => {
+      render(<SearchForm searchTerm={""} />, { wrapper: MemoryRouter });
+    });
+
+    const searchInput = screen.getByRole("searchbox");
+    const button = screen.getByRole("button");
+    await userEvent.type(searchInput, "London");
+    await userEvent.click(button);
+
+    const dropdownButton = screen.getByRole("button", {
+      name: /Select a location/,
+    });
+
+    // Assert
+    expect(dropdownButton).toBeInTheDocument();
   });
 });
