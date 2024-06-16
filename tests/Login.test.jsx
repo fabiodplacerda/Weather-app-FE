@@ -14,7 +14,7 @@ vi.mock("../src/services/user.service");
 describe("Login tests", () => {
   const mockedFunction = vi.fn();
   it("should display a message when Login was successful", async () => {
-    await act(async () => userServices.getUser.mockResolvedValueOnce(users[0]));
+    await act(async () => userServices.login.mockResolvedValueOnce(users[0]));
 
     await act(async () => {
       render(<Login setUser={mockedFunction} />, { wrapper: MemoryRouter });
@@ -33,7 +33,7 @@ describe("Login tests", () => {
     expect(successfulLoginText).toBeInTheDocument();
   });
   it("should display a error message when Login was not successful", async () => {
-    await act(async () => userServices.getUser.mockResolvedValueOnce({}));
+    await act(async () => userServices.login.mockResolvedValueOnce({}));
 
     await act(async () => {
       render(<Login setUser={mockedFunction} />, { wrapper: MemoryRouter });

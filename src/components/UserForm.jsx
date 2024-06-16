@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { addUser, getUser } from "../services/user.service";
+import { addUser, getUser, login } from "../services/user.service";
 import { useNavigate } from "react-router-dom";
 
 import LoadingButton from "@mui/lab/LoadingButton";
@@ -25,9 +25,9 @@ export const UserForm = ({ action, setUser, setFavouriteCities }) => {
   const [isEmailValid, setIsEmailValid] = useState(true);
   const [isPasswordValid, setIsPasswordValid] = useState(true);
 
-  const login = async () => {
-    const userData = await getUser(email);
-    if (userData.password === password) {
+  const sendLogin = async () => {
+    const userData = await login(email, password);
+    if (userData.hasOwnProperty("email")) {
       sessionStorage.setItem("user", JSON.stringify(userData));
       sessionStorage.setItem(
         "favouriteCities",
@@ -57,7 +57,7 @@ export const UserForm = ({ action, setUser, setFavouriteCities }) => {
       isPasswordValid
     ) {
       try {
-        const addedUser = await addUser({
+        await addUser({
           email: email,
           name: name,
           password: password,
@@ -78,7 +78,7 @@ export const UserForm = ({ action, setUser, setFavouriteCities }) => {
   const onSubmitHandler = async (e) => {
     e.preventDefault();
     if (action === "Login") {
-      await login();
+      await sendLogin();
     } else if (action === "Sign Up") {
       await signUp();
     }

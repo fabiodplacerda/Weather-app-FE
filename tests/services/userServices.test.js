@@ -2,7 +2,9 @@ import axios from "axios";
 import {
   addUser,
   getUser,
+  login,
   updateUserCities,
+  removeFavouriteCity,
 } from "../../src/services/user.service";
 import testUsers from "../data/testUser";
 
@@ -37,6 +39,38 @@ describe("User services tests", () => {
       axios.get.mockRejectedValueOnce(error);
 
       const result = await getUser(email);
+
+      expect(result).toEqual(error);
+    });
+  });
+  describe("Login tests", () => {
+    const mockedResolvedUsersData = {
+      data: users[0],
+    };
+    const email = "user1@example.com";
+    const password = "Password1!";
+    it("should make the right data call", async () => {
+      axios.post.mockResolvedValueOnce(mockedResolvedUsersData);
+
+      await login(email, password);
+
+      expect(axios.post).toHaveBeenCalledWith(
+        `http://localhost:3000/user/login`,
+        { email, password }
+      );
+    });
+    it("should make the correct data call", async () => {
+      axios.post.mockResolvedValueOnce(mockedResolvedUsersData);
+
+      const result = await login(email, password);
+
+      expect(result).toEqual(users[0]);
+    });
+    it("should return an error message if request fails", async () => {
+      const error = { message: "Error" };
+      axios.post.mockRejectedValueOnce(error);
+
+      const result = await login(email, password);
 
       expect(result).toEqual(error);
     });
@@ -110,6 +144,56 @@ describe("User services tests", () => {
       axios.patch.mockRejectedValueOnce(testError);
 
       const result = await updateUserCities(testId, newCity);
+
+      expect(result).toEqual(testError);
+    });
+  });
+  describe("removeFavouriteCity", () => {
+    const testUser = users[1];
+    const testId = testUser._id;
+    const cityToRemove = {
+      city: "Tokyo",
+      country: "Japan",
+      latitude: 35.6895,
+      longitude: 139.6917,
+    };
+    const updateUser = {
+      ...testUser,
+      favouriteCities: [
+        {
+          city: "London",
+          country: "UK",
+          latitude: 51.5074,
+          longitude: -0.1278,
+        },
+      ],
+    };
+    const mockedResolvedUsersData = {
+      data: updateUser,
+    };
+
+    it("should make the right data call", async () => {
+      axios.patch.mockResolvedValueOnce(mockedResolvedUsersData);
+
+      await removeFavouriteCity(testId, cityToRemove);
+
+      expect(axios.patch).toHaveBeenCalledWith(
+        `http://localhost:3000/user/removeFavouriteCity/${testId}`,
+        { cityToRemove }
+      );
+    });
+    it("should return the correct data", async () => {
+      axios.patch.mockResolvedValueOnce(mockedResolvedUsersData);
+
+      const result = await removeFavouriteCity(testId, cityToRemove);
+
+      expect(result).toEqual(updateUser);
+    });
+    it("should return an error if the request fails", async () => {
+      const testError = { message: "Test error" };
+      axios.patch.mockRejectedValueOnce(testError);
+
+      const result = await removeFavouriteCity(testId, cityToRemove);
 
       expect(result).toEqual(testError);
     });
