@@ -1,6 +1,7 @@
 import BookmarkRemoveIcon from "@mui/icons-material/BookmarkRemove";
 import { Link } from "react-router-dom";
 import { removeFavouriteCity } from "../services/user.service";
+import { useState } from "react";
 
 export const FavouriteLocations = ({
   favouriteCities,
@@ -8,6 +9,7 @@ export const FavouriteLocations = ({
   setSelectedCity,
   user,
 }) => {
+  const [removedCityMessage, setRemovedCityMessage] = useState(null);
   const removeCityFromFavourites = async (cityToRemove) => {
     try {
       const updatedUser = await removeFavouriteCity(user._id, cityToRemove);
@@ -16,6 +18,12 @@ export const FavouriteLocations = ({
         "favouriteCities",
         JSON.stringify(updatedUser.favouriteCities)
       );
+      setRemovedCityMessage({
+        message: `${cityToRemove.city} has been successfully removed`,
+      });
+      setTimeout(() => {
+        setRemovedCityMessage(null);
+      }, 1500);
     } catch (e) {
       console.log(e.message);
     }
@@ -38,11 +46,12 @@ export const FavouriteLocations = ({
                     data-testid="single-favourite-city"
                   >
                     <BookmarkRemoveIcon
+                      id="remove-icon"
                       sx={{ fontSize: 30 }}
                       onClick={() => removeCityFromFavourites(city)}
                     ></BookmarkRemoveIcon>
                     <Link
-                      className="fs-5 mx-3"
+                      className="fs-5 mx-3 favourite-city-link"
                       to={`/weather/${cityName}/${country}`}
                       onClick={() => {
                         setSelectedCity(city);
@@ -55,6 +64,11 @@ export const FavouriteLocations = ({
               })
             ) : (
               <p className="text-center fs-4">No cities have been saved yet</p>
+            )}
+            {removedCityMessage && (
+              <p className="text-center fs-4 text-green">
+                {removedCityMessage.message}
+              </p>
             )}
           </div>
         </div>

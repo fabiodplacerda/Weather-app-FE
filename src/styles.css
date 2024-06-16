@@ -83,10 +83,25 @@
   min-width: 100px;
 }
 
-#bookmark-icon {
+#bookmark-icon,
+#remove-icon {
   cursor: pointer;
   transition: color 0.2s;
 }
-#bookmark-icon:hover {
+#bookmark-icon:hover,
+#remove-icon:hover {
   color: rgba(0, 99, 219, 1);
+}
+
+.favourite-city-link {
+  color: rgb(248, 249, 250);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.favourite-city-link:hover {
+  color: rgba(0, 99, 219, 1);
+}
+
+.text-green {
+  color: rgb(31, 202, 31);
 }

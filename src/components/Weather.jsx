@@ -67,7 +67,7 @@ export const Weather = ({
       setAdded(true);
       setTimeout(() => {
         setAdded(false);
-      }, 1000);
+      }, 1500);
     } catch (e) {
       console.log(e.message);
       setError(true);
@@ -121,8 +121,8 @@ export const Weather = ({
           )}
         </div>
         {added && (
-          <p className="text-center text-success fs-5">
-            <strong>City has been added to the bookmarks successfully</strong>
+          <p className="text-center text-green fs-5">
+            City has been added to the bookmarks successfully
           </p>
         )}
         <div className="text-center">
