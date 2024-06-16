@@ -100,6 +100,7 @@ export const Header = ({
                             onClick={() => {
                               setSelectedCity(city);
                             }}
+                            data-testid="dropdown-item"
                           >
                             {city.city}, {city.country}
                           </Link>
