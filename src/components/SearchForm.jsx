@@ -38,7 +38,9 @@ export const SearchForm = ({ setSelectedCity, searchTerm }) => {
 
     if (results.length === 1) {
       setSelectedCity(results[0]);
-      navigate(`/weather/${results[0].formatted}`);
+      const cityName = results[0].components.city.replaceAll(" ", "");
+      const countryName = results[0].components.country.replaceAll(" ", "");
+      navigate(`/weather/${cityName}/${countryName}`);
     } else if (results.length === 0) {
       setError({
         message: `Failed to search for ${searchInput}, please provide a valid city name and country`,
@@ -88,12 +90,15 @@ export const SearchForm = ({ setSelectedCity, searchTerm }) => {
               </button>
               <ul className="dropdown-menu">
                 {suggestion.map((city, index) => {
+                  const country = city.components.country.replaceAll(" ", "");
+                  const cityName =
+                    city.components.state || city.components.city;
+                  const formattedCityName = cityName.replaceAll(" ", "");
                   return (
                     <Link
                       key={index}
-                      to={`/weather/${city.formatted}`}
+                      to={`/weather/${formattedCityName}/${country}`}
                       className="dropdown-item"
-                      href="#"
                       onClick={() => {
                         setSelectedCity(city);
                       }}

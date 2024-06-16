@@ -82,3 +82,11 @@
 #loading-button {
   min-width: 100px;
 }
+
+#bookmark-icon {
+  cursor: pointer;
+  transition: color 0.2s;
+}
+#bookmark-icon:hover {
+  color: rgba(0, 99, 219, 1);
+}

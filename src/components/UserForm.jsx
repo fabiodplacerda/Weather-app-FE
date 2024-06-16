@@ -9,7 +9,7 @@ import {
   validatePassword,
 } from "./utils/formValidation";
 
-export const UserForm = ({ action, setUser }) => {
+export const UserForm = ({ action, setUser, setFavouriteCities }) => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
@@ -29,10 +29,15 @@ export const UserForm = ({ action, setUser }) => {
     const userData = await getUser(email);
     if (userData.password === password) {
       sessionStorage.setItem("user", JSON.stringify(userData));
+      sessionStorage.setItem(
+        "favouriteCities",
+        JSON.stringify(userData.favouriteCities)
+      );
       setIsLoading(true);
       setIsLoginSuccessful(true);
       setTimeout(() => {
         setUser(userData);
+        setFavouriteCities(userData.favouriteCities);
         navigate("/");
       }, 1500);
     } else {

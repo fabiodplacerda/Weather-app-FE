@@ -2,7 +2,13 @@ import SearchIcon from "@mui/icons-material/Search";
 import { useEffect, useState } from "react";
 import { NavLink, useLocation, Link, useNavigate } from "react-router-dom";
 
-export const Header = ({ setSearchTerm, favouriteCities, user, setUser }) => {
+export const Header = ({
+  setSearchTerm,
+  favouriteCities,
+  user,
+  setUser,
+  setSelectedCity,
+}) => {
   const navigate = useNavigate();
 
   const [searchInput, setSearchInput] = useState("");
@@ -18,8 +24,6 @@ export const Header = ({ setSearchTerm, favouriteCities, user, setUser }) => {
     navigate("/");
     setSearchInput("");
   };
-
-  console.log(user);
 
   return (
     <header>
@@ -74,7 +78,7 @@ export const Header = ({ setSearchTerm, favouriteCities, user, setUser }) => {
                   </li>
                 </>
               )}
-              {user && user.favouriteCities.length > 0 && (
+              {user && favouriteCities.length > 0 && (
                 <li className="nav-item dropdown">
                   <Link
                     className="nav-link dropdown-toggle"
@@ -85,12 +89,20 @@ export const Header = ({ setSearchTerm, favouriteCities, user, setUser }) => {
                     My Saved Locations
                   </Link>
                   <ul className="dropdown-menu">
-                    {user.favouriteCities.map((city, index) => {
+                    {favouriteCities.map((city, index) => {
+                      const country = city.country.replaceAll(" ", "");
+                      const cityName = city.city.replaceAll(" ", "");
                       return (
                         <li key={index}>
-                          <a className="dropdown-item" href="#">
-                            {city}
-                          </a>
+                          <Link
+                            className="dropdown-item"
+                            to={`/weather/${cityName}/${country}`}
+                            onClick={() => {
+                              setSelectedCity(city);
+                            }}
+                          >
+                            {city.city}, {city.country}
+                          </Link>
                         </li>
                       );
                     })}

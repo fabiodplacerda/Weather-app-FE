@@ -8,7 +8,6 @@ import { Weather } from "./components/Weather";
 import { Login } from "./components/Login";
 import { useEffect, useState } from "react";
 import { FavouriteLocations } from "./components/FavouriteLocations";
-import favouriteCitiesData from "../data/favouriteLocationsObject";
 
 const App = () => {
   const [selectedCity, setSelectedCity] = useState({});
@@ -18,16 +17,24 @@ const App = () => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    setFavouriteCities(favouriteCitiesData);
     const savedUser = sessionStorage.getItem("user");
     if (savedUser) {
-      setUser(JSON.parse(savedUser));
+      const parsedUser = JSON.parse(savedUser);
+      setUser(parsedUser);
+
+      const savedFavouriteCities = sessionStorage.getItem("favouriteCities");
+      if (savedFavouriteCities) {
+        const parsedFavouriteCities = JSON.parse(savedFavouriteCities);
+        setFavouriteCities(parsedFavouriteCities);
+      }
     }
   }, []);
 
   const handleLogout = () => {
     sessionStorage.removeItem("user");
+    sessionStorage.removeItem("favouriteCities");
     setUser(null);
+    setFavouriteCities([]);
   };
 
   return (
@@ -37,6 +44,7 @@ const App = () => {
         favouriteCities={favouriteCities}
         user={user}
         handleLogout={handleLogout}
+        setSelectedCity={setSelectedCity}
       />
       <main className="mt-5 mb-5 align-items-center d-flex" id="main-container">
         <Routes>
@@ -50,15 +58,35 @@ const App = () => {
             }
           />
           <Route path="/signup" element={<SignUp />} />
-          <Route path="/login" element={<Login setUser={setUser} />} />{" "}
+          <Route
+            path="/login"
+            element={
+              <Login
+                setUser={setUser}
+                setFavouriteCities={setFavouriteCities}
+              />
+            }
+          />{" "}
           {/* Ensure setUser is passed here */}
           <Route
-            path="/weather/:id"
-            element={<Weather selectedCity={selectedCity} user={user} />}
+            path="/weather/:name/:country"
+            element={
+              <Weather
+                selectedCity={selectedCity}
+                user={user}
+                favouriteCities={favouriteCities}
+                setFavouriteCities={setFavouriteCities}
+              />
+            }
           />
           <Route
             path="/favouritelocations"
-            element={<FavouriteLocations favouriteCities={favouriteCities} />}
+            element={
+              <FavouriteLocations
+                favouriteCities={favouriteCities}
+                setSelectedCity={setSelectedCity}
+              />
+            }
           />
         </Routes>
       </main>

@@ -1,5 +1,9 @@
 import axios from "axios";
-import { addUser, getUser } from "../../src/services/user.service";
+import {
+  addUser,
+  getUser,
+  updateUserCities,
+} from "../../src/services/user.service";
 import testUsers from "../data/testUser";
 
 const { users, newUser } = testUsers;
@@ -65,6 +69,49 @@ describe("User services tests", () => {
       const result = await addUser(newUser);
 
       expect(result).toEqual(error);
+    });
+  });
+  describe("updateUserCities", () => {
+    const testUser = users[0];
+    const testId = testUser._id;
+    const newCity = {
+      city: "Athens",
+      country: "Greece",
+      lat: 37.9838,
+      lng: 23.7275,
+    };
+    const updateUser = {
+      ...testUser,
+      favouriteCities: [...testUser.favouriteCities, newCity],
+    };
+    const mockedResolvedUsersData = {
+      data: updateUser,
+    };
+
+    it("should make the right data call", async () => {
+      axios.patch.mockResolvedValueOnce(mockedResolvedUsersData);
+
+      await updateUserCities(testId, newCity);
+
+      expect(axios.patch).toHaveBeenCalledWith(
+        `http://localhost:3000/user/updateFavouriteCities/${testId}`,
+        { newFavouriteCity: newCity }
+      );
+    });
+    it("should return the correct data", async () => {
+      axios.patch.mockResolvedValueOnce(mockedResolvedUsersData);
+
+      const result = await updateUserCities(testId, newCity);
+
+      expect(result).toEqual(updateUser);
+    });
+    it("should return an error if the request fails", async () => {
+      const testError = { message: "Test error" };
+      axios.patch.mockRejectedValueOnce(testError);
+
+      const result = await updateUserCities(testId, newCity);
+
+      expect(result).toEqual(testError);
     });
   });
 });

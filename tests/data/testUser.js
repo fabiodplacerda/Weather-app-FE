@@ -87,6 +87,32 @@ const testUsers = {
       },
     ],
   },
+  updateUser: {
+    _id: "66637a57557ca62365e759fe",
+    email: "user1@example.com",
+    name: "User One",
+    password: "Password1!",
+    favouriteCities: [
+      {
+        city: "New York",
+        country: "USA",
+        latitude: 40.7128,
+        longitude: -74.006,
+      },
+      {
+        city: "Paris",
+        country: "France",
+        latitude: 48.8566,
+        longitude: 2.3522,
+      },
+      {
+        city: "Tokyo",
+        country: "Japan",
+        latitude: 35.6895,
+        longitude: 139.6917,
+      },
+    ],
+  },
 };
 
 export default testUsers;

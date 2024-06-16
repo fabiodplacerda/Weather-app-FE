@@ -20,3 +20,18 @@ export const addUser = async (newUser) => {
     return e;
   }
 };
+
+export const updateUserCities = async (id, newCity) => {
+  const formattedBody = { newFavouriteCity: newCity };
+
+  try {
+    const updateUser = await axios.patch(
+      `http://localhost:3000/user/updateFavouriteCities/${id}`,
+      formattedBody
+    );
+    return updateUser.data;
+  } catch (e) {
+    console.log(e.response);
+    return e;
+  }
+};

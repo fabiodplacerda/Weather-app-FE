@@ -1,6 +1,7 @@
 import BookmarkRemoveIcon from "@mui/icons-material/BookmarkRemove";
+import { Link } from "react-router-dom";
 
-export const FavouriteLocations = ({ favouriteCities }) => {
+export const FavouriteLocations = ({ favouriteCities, setSelectedCity }) => {
   return (
     <>
       <div id="favourites-container">
@@ -9,6 +10,8 @@ export const FavouriteLocations = ({ favouriteCities }) => {
         <div className="container mt-5">
           <div className="row">
             {favouriteCities.map((city, index) => {
+              const country = city.country.replaceAll(" ", "");
+              const cityName = city.city.replaceAll(" ", "");
               return (
                 <div
                   key={index}
@@ -18,7 +21,15 @@ export const FavouriteLocations = ({ favouriteCities }) => {
                   <BookmarkRemoveIcon
                     sx={{ fontSize: 30 }}
                   ></BookmarkRemoveIcon>
-                  <p className="fs-5 mx-3">{city}</p>
+                  <Link
+                    className="fs-5 mx-3"
+                    to={`/weather/${cityName}/${country}`}
+                    onClick={() => {
+                      setSelectedCity(city);
+                    }}
+                  >
+                    {city.city}, {city.country}
+                  </Link>
                 </div>
               );
             })}
