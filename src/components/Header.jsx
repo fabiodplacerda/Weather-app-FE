@@ -115,7 +115,7 @@ export const Header = ({
                 <input
                   className="form-control me-2"
                   type="search"
-                  placeholder="Location search..."
+                  placeholder="ex. London, Uk"
                   aria-label="location search"
                   onChange={onChangeHandler}
                   value={searchInput}

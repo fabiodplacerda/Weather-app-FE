@@ -84,7 +84,9 @@ const App = () => {
             element={
               <FavouriteLocations
                 favouriteCities={favouriteCities}
+                setFavouriteCities={setFavouriteCities}
                 setSelectedCity={setSelectedCity}
+                user={user}
               />
             }
           />

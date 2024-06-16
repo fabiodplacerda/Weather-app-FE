@@ -65,7 +65,7 @@ export const SearchForm = ({ setSelectedCity, searchTerm }) => {
             <input
               type="search"
               className="form-control"
-              placeholder="Location name..."
+              placeholder="ex. London, UK"
               aria-label="search location input"
               id="search-box"
               onChange={onChangeHandler}
@@ -92,7 +92,9 @@ export const SearchForm = ({ setSelectedCity, searchTerm }) => {
                 {suggestion.map((city, index) => {
                   const country = city.components.country.replaceAll(" ", "");
                   const cityName =
-                    city.components.state || city.components.city;
+                    city.components.state ||
+                    city.components.city ||
+                    city.components.county;
                   const formattedCityName = cityName.replaceAll(" ", "");
                   return (
                     <Link

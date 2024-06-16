@@ -114,8 +114,6 @@ describe("Weather component tests", () => {
     );
     const loginLink = await screen.findByText(/Login/);
     expect(loginText).toBeInTheDocument();
-
-    console.log(loginLink, loginText);
   });
   it("should show a successful message text when adding a city to favourites was successful", async () => {
     // Arrange

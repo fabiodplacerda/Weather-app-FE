@@ -6,7 +6,7 @@ export const getCities = async (cityName) => {
       ? import.meta.env.VITE_APP_GEOCODINGURL
       : `${import.meta.env.VITE_APP_GEOCODINGURL}?q=${cityName}&key=${
           import.meta.env.VITE_APP_GEOCODINGAPIKEY
-        }&language=en&pretty=1&limit=2`;
+        }&language=en&pretty=1`;
   try {
     const geoCode = await axios.get(url);
     return geoCode.data;
