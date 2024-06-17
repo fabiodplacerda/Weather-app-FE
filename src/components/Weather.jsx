@@ -4,7 +4,6 @@ import { getWeather } from "../services/weather.service";
 import weatherListFormatter from "./utils/weatherListFormatter";
 import { Loading } from "./Loading";
 import { Error } from "./Error";
-import weatherDataObj from "../../data/weatherDataObj";
 import { WeatherCard } from "./WeatherCard";
 import { Link } from "react-router-dom";
 import { updateUserCities } from "../services/user.service";
