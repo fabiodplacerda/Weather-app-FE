@@ -36,9 +36,6 @@ export const Weather = ({
     try {
       const weather = await getWeather(latitude, longitude);
 
-      // ! TEST OBJECT
-      // const weather = weatherDataObj;
-
       const list = weather.list;
       setCityDetails({
         city: cityName,
@@ -46,7 +43,7 @@ export const Weather = ({
         latitude: lat,
         longitude: lng,
       });
-      // console.log(list);
+
       const listFormatted = weatherListFormatter(list);
       setError(false);
       setCityWeather(listFormatted);

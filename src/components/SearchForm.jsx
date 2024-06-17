@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { getCities } from "../services/geocoding.service";
 import { Link, useNavigate } from "react-router-dom";
-import citiesDataObj from "../../data/citiesDataObj";
 
 export const SearchForm = ({ setSelectedCity, searchTerm }) => {
   const [searchInput, setSearchInput] = useState("");
@@ -23,9 +22,6 @@ export const SearchForm = ({ setSelectedCity, searchTerm }) => {
   const searchHandler = async (e) => {
     e.preventDefault();
     const cities = await getCities(searchInput);
-
-    // ! TEST DATA
-    // const cities = citiesDataObj;
 
     if (cities instanceof Error) {
       setError({
