@@ -6,7 +6,7 @@ vi.mock("axios");
 
 describe("Weather services tests", () => {
   const mockedResolvedWeatherData = { data: testWeatherData };
-  it.skip("should make the correct data call", async () => {
+  it("should make the correct data call", async () => {
     // Arrange
     axios.get.mockResolvedValueOnce(mockedResolvedWeatherData);
     const expected = "http://localhost:3000/list";

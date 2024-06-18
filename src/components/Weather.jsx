@@ -54,7 +54,11 @@ export const Weather = ({
 
   const addCityToFavourites = async () => {
     try {
-      const updatedUser = await updateUserCities(user._id, cityDetails);
+      const updatedUser = await updateUserCities(
+        user._id,
+        user.password,
+        cityDetails
+      );
       setFavouriteCities(updatedUser.favouriteCities);
       sessionStorage.setItem(
         "favouriteCities",

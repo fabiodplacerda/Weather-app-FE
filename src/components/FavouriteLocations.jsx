@@ -12,7 +12,11 @@ export const FavouriteLocations = ({
   const [removedCityMessage, setRemovedCityMessage] = useState(null);
   const removeCityFromFavourites = async (cityToRemove) => {
     try {
-      const updatedUser = await removeFavouriteCity(user._id, cityToRemove);
+      const updatedUser = await removeFavouriteCity(
+        user._id,
+        user.password,
+        cityToRemove
+      );
       setFavouriteCities(updatedUser.favouriteCities);
       sessionStorage.setItem(
         "favouriteCities",

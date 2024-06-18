@@ -34,8 +34,8 @@ export const addUser = async (newUser) => {
   }
 };
 
-export const updateUserCities = async (id, newCity) => {
-  const formattedBody = { newFavouriteCity: newCity };
+export const updateUserCities = async (id, password, newCity) => {
+  const formattedBody = { password: password, newFavouriteCity: newCity };
 
   try {
     const updateUser = await axios.patch(
@@ -48,8 +48,8 @@ export const updateUserCities = async (id, newCity) => {
     return e;
   }
 };
-export const removeFavouriteCity = async (id, cityToRemove) => {
-  const formattedBody = { cityToRemove: cityToRemove };
+export const removeFavouriteCity = async (id, password, cityToRemove) => {
+  const formattedBody = { password: password, cityToRemove: cityToRemove };
 
   try {
     const updateUser = await axios.patch(
