@@ -8,6 +8,7 @@ import { Weather } from "./components/Weather";
 import { Login } from "./components/Login";
 import { useEffect, useState } from "react";
 import { FavouriteLocations } from "./components/FavouriteLocations";
+import { PageNotFound } from "./components/PageNotFound";
 
 const App = () => {
   const [selectedCity, setSelectedCity] = useState({});
@@ -90,6 +91,7 @@ const App = () => {
               />
             }
           />
+          <Route path="*" element={<PageNotFound />} />
         </Routes>
       </main>
       <Footer />

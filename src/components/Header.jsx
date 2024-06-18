@@ -120,6 +120,7 @@ export const Header = ({
                   aria-label="location search"
                   onChange={onChangeHandler}
                   value={searchInput}
+                  data-testId="search-header-input"
                 />
                 <button id="search-icon" type="submit">
                   <SearchIcon sx={{ fontSize: 30 }}></SearchIcon>

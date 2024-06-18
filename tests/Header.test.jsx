@@ -1,7 +1,6 @@
-import { act } from "react";
 import { Header } from "../src/components/Header";
-import { render, screen, waitFor } from "@testing-library/react";
-import { MemoryRouter } from "react-router-dom";
+import { render, screen } from "@testing-library/react";
+import { MemoryRouter, RouterProvider } from "react-router-dom";
 import testUsers from "./data/testUser";
 import userEvent from "@testing-library/user-event";
 
@@ -69,6 +68,39 @@ describe("Header Tests", () => {
       { wrapper: MemoryRouter }
     );
     userEvent.click(screen.getByAltText(/df weather logo/));
+    expect(window.location.pathname).toBe("/");
+  });
+  it("should show the search box when not in the path ('/')", async () => {
+    render(
+      <MemoryRouter initialEntries={["/login"]}>
+        <Header
+          setSearchTerm={mockedFn}
+          favouriteCities={[]}
+          user={null}
+          setUser={mockedFn}
+          setSelectedCity={mockedFn}
+        />
+      </MemoryRouter>
+    );
+    const searchBox = await screen.findByPlaceholderText(/ex. London, Uk/);
+    expect(searchBox).toBeInTheDocument();
+  });
+  it("should change path when user searches for a location", async () => {
+    render(
+      <MemoryRouter initialEntries={["/login"]}>
+        <Header
+          setSearchTerm={mockedFn}
+          favouriteCities={[]}
+          user={null}
+          setUser={mockedFn}
+          setSelectedCity={mockedFn}
+        />
+      </MemoryRouter>
+    );
+    const searchBox = await screen.findByPlaceholderText(/ex. London, Uk/);
+    const button = screen.getByTestId("SearchIcon");
+    await userEvent.type(searchBox, "London");
+    await userEvent.click(button);
     expect(window.location.pathname).toBe("/");
   });
 });
